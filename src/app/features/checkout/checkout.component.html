@@ -1,0 +1,41 @@
+<div class="pagina-checkout">
+  <h1>Finalizar compra</h1>
+
+  @if (carrinhoStore.itens().length === 0) {
+    <p class="estado">O teu carrinho está vazio. <a routerLink="/loja">Ver produtos</a></p>
+  } @else {
+    <div class="resumo-itens">
+      @for (item of carrinhoStore.itens(); track item.id) {
+        <div class="linha">
+          <span>{{ item.quantidade }}× {{ item.produto?.nome }}</span>
+          <span>{{ item.quantidade * (item.produto?.preco || 0) | currency: 'AOA ':'symbol':'1.2-2' }}</span>
+        </div>
+      }
+      <div class="linha total">
+        <span>Total</span>
+        <strong>{{ carrinhoStore.total() | currency: 'AOA ':'symbol':'1.2-2' }}</strong>
+      </div>
+    </div>
+
+    <div class="formulario">
+      <label for="morada">Morada de entrega</label>
+      <textarea
+        id="morada"
+        [(ngModel)]="moradaEntrega"
+        placeholder="Rua, número, bairro, município, província..."
+      ></textarea>
+
+      <label for="metodo">Método de pagamento</label>
+      <select id="metodo" [(ngModel)]="metodoPagamento">
+        <option value="multicaixa">Multicaixa</option>
+        <option value="mbway">MB WAY</option>
+        <option value="transferencia">Transferência bancária</option>
+        <option value="cartao">Cartão</option>
+      </select>
+
+      <button (click)="finalizarCompra()" [disabled]="aProcessar()">
+        {{ aProcessar() ? 'A processar...' : 'Confirmar encomenda' }}
+      </button>
+    </div>
+  }
+</div>

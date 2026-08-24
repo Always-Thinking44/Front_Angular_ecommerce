@@ -1,0 +1,146 @@
+<section class="hero">
+  <div class="hero-decoracao decoracao-1"></div>
+  <div class="hero-decoracao decoracao-2"></div>
+
+  <div class="hero-conteudo">
+    <span class="hero-selo">Novidades todas as semanas</span>
+    <h1>Tudo o que precisas, <em>num só lugar</em></h1>
+    <p>
+      Electrónica, casa, moda e muito mais. Preços justos, entrega rápida e
+      pagamento 100% seguro.
+    </p>
+
+    <div class="hero-acoes">
+      <a routerLink="/loja" class="btn btn-primario">
+        Explorar produtos
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+      @if (!auth.autenticado()) {
+        <a routerLink="/auth/registo" class="btn btn-fantasma">Criar conta grátis</a>
+      } @else {
+        <a routerLink="/carrinho" class="btn btn-fantasma">Ver o meu carrinho</a>
+      }
+    </div>
+
+    @if (produtosDestaque().length > 0) {
+      <div class="hero-stats">
+        <div><strong>{{ produtosDestaque().length }}+</strong><span>produtos à tua espera</span></div>
+        <div><strong>{{ categorias().length || 'Várias' }}</strong><span>categorias</span></div>
+        <div><strong>24/7</strong><span>apoio ao cliente</span></div>
+      </div>
+    }
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-cartao cartao-1"></div>
+    <div class="hero-cartao cartao-2"></div>
+    <div class="hero-cartao cartao-3">
+      <img src="https://placehold.co/280x280/4f46e5/ffffff?text=%F0%9F%9B%8D%EF%B8%8F" alt="" />
+    </div>
+  </div>
+</section>
+
+<section class="beneficios">
+  <div class="beneficio">
+    <span class="icone i-1">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/>
+        <circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/>
+      </svg>
+    </span>
+    <h3>Entrega rápida</h3>
+    <p>Recebe a tua encomenda em tempo recorde.</p>
+  </div>
+
+  <div class="beneficio">
+    <span class="icone i-2">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+        <path d="m9 12 2 2 4-4"/>
+      </svg>
+    </span>
+    <h3>Pagamento seguro</h3>
+    <p>Os teus dados estão sempre protegidos.</p>
+  </div>
+
+  <div class="beneficio">
+    <span class="icone i-3">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+      </svg>
+    </span>
+    <h3>Devoluções fáceis</h3>
+    <p>Não gostaste? Devolves sem complicações.</p>
+  </div>
+
+  <div class="beneficio">
+    <span class="icone i-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+      </svg>
+    </span>
+    <h3>Apoio sempre disponível</h3>
+    <p>Estamos aqui para ajudar, todos os dias.</p>
+  </div>
+</section>
+
+@if (categorias().length > 0) {
+  <section class="seccao">
+    <header class="seccao-cabecalho">
+      <h2>Navega por categoria</h2>
+      <a routerLink="/loja" class="ver-todos">Ver tudo →</a>
+    </header>
+
+    <div class="grelha-categorias">
+      @for (categoria of categorias(); track categoria.id) {
+        <a
+          [routerLink]="['/loja']"
+          [queryParams]="{ categoria: categoria.id }"
+          class="categoria-card"
+        >
+          <span class="categoria-nome">{{ categoria.nome }}</span>
+          <span class="categoria-seta">→</span>
+        </a>
+      }
+    </div>
+  </section>
+}
+
+<section class="seccao">
+  <header class="seccao-cabecalho">
+    <h2>Em destaque</h2>
+    <a routerLink="/loja" class="ver-todos">Ver tudo →</a>
+  </header>
+
+  @if (produtosDestaque().length > 0) {
+    <div class="grelha-produtos">
+      @for (produto of produtosDestaque(); track produto.id) {
+        <app-produto-card [produto]="produto" />
+      }
+    </div>
+  } @else {
+    <div class="sem-produtos">
+      <p>Ainda não há produtos para mostrar.</p>
+      <a routerLink="/loja" class="btn btn-primario">Ir para a loja</a>
+    </div>
+  }
+</section>
+
+<section class="cta-final">
+  <div class="cta-caixa">
+    <h2>Pronto para começar?</h2>
+    <p>Cria a tua conta gratuita e faz a tua primeira compra hoje mesmo.</p>
+    @if (!auth.autenticado()) {
+      <a routerLink="/auth/registo" class="btn btn-branco">Criar conta grátis</a>
+    } @else {
+      <a routerLink="/loja" class="btn btn-branco">Continuar a comprar</a>
+    }
+  </div>
+</section>

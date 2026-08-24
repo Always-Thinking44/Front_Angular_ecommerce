@@ -1,0 +1,49 @@
+<div class="pagina-admin">
+  <div class="cabecalho">
+    <h1>Gestão de categorias</h1>
+    <button (click)="nova()">+ Nova categoria</button>
+  </div>
+
+  @if (aMostrarFormulario) {
+    <div class="formulario">
+      <h2>{{ emEdicaoId ? 'Editar categoria' : 'Nova categoria' }}</h2>
+
+      <label>Nome</label>
+      <input type="text" [(ngModel)]="formulario.nome" />
+
+      <label>Descrição</label>
+      <textarea [(ngModel)]="formulario.descricao"></textarea>
+
+      <div class="acoes-formulario">
+        <button class="secundario" (click)="cancelarEdicao()">Cancelar</button>
+        <button (click)="guardar()">Guardar</button>
+      </div>
+    </div>
+  }
+
+  @if (aCarregar()) {
+    <p class="estado">A carregar...</p>
+  } @else {
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (categoria of categorias(); track categoria.id) {
+          <tr>
+            <td>{{ categoria.nome }}</td>
+            <td>{{ categoria.descricao }}</td>
+            <td class="acoes">
+              <button class="link" (click)="editar(categoria)">Editar</button>
+              <button class="link perigo" (click)="remover(categoria)">Remover</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

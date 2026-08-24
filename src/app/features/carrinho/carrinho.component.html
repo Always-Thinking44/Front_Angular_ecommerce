@@ -1,0 +1,43 @@
+<div class="pagina-carrinho">
+  <h1>O meu carrinho</h1>
+
+  @if (carrinhoStore.itens().length === 0) {
+    <p class="estado">O teu carrinho está vazio. <a routerLink="/loja">Ver produtos</a></p>
+  } @else {
+    <div class="lista">
+      @for (item of carrinhoStore.itens(); track item.id) {
+        <div class="item">
+          <img
+            [src]="item.produto?.imagem_url || 'https://placehold.co/80x80?text=Produto'"
+            [alt]="item.produto?.nome"
+          />
+          <div class="detalhes">
+            <span class="nome">{{ item.produto?.nome }}</span>
+            <span class="preco-unitario">
+              {{ item.produto?.preco | currency: 'AOA ':'symbol':'1.2-2' }}
+            </span>
+          </div>
+
+          <div class="quantidade">
+            <button (click)="alterarQuantidade(item.id, item.quantidade - 1)">−</button>
+            <span>{{ item.quantidade }}</span>
+            <button (click)="alterarQuantidade(item.id, item.quantidade + 1)">+</button>
+          </div>
+
+          <span class="subtotal">
+            {{ item.quantidade * (item.produto?.preco || 0) | currency: 'AOA ':'symbol':'1.2-2' }}
+          </span>
+
+          <button class="remover" (click)="removerItem(item.id)">Remover</button>
+        </div>
+      }
+    </div>
+
+    <div class="resumo">
+      <span>Total</span>
+      <strong>{{ carrinhoStore.total() | currency: 'AOA ':'symbol':'1.2-2' }}</strong>
+    </div>
+
+    <a routerLink="/checkout" class="btn-checkout">Finalizar compra</a>
+  }
+</div>

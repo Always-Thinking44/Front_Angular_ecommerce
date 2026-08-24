@@ -1,0 +1,135 @@
+.estado {
+  text-align: center;
+  color: #888;
+  padding: 2rem;
+}
+
+.detalhe {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.galeria img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.info {
+  .categoria {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0.35rem 0;
+  }
+
+  .descricao {
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .preco {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0.75rem 0 0.25rem;
+  }
+
+  .stock {
+    color: #888;
+    font-size: 0.85rem;
+  }
+
+  .acoes {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+
+    input {
+      width: 70px;
+      padding: 0.5rem;
+      border: 1px solid #d6d6dc;
+      border-radius: 6px;
+    }
+
+    button {
+      flex: 1;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:disabled {
+        background: #ccc;
+      }
+    }
+  }
+}
+
+.avaliacoes {
+  max-width: 1000px;
+  margin: 1rem auto 3rem;
+  padding: 0 1.5rem;
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  .nova-avaliacao {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: #f7f7f9;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+
+    select,
+    textarea {
+      padding: 0.5rem;
+      border: 1px solid #d6d6dc;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+
+    button {
+      align-self: flex-start;
+      background: #1a1a2e;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  }
+
+  .avaliacao {
+    border-bottom: 1px solid #eee;
+    padding: 0.75rem 0;
+
+    .classificacao {
+      margin-left: 0.5rem;
+      color: #f59e0b;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0.25rem 0 0;
+      color: #444;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .detalhe {
+    grid-template-columns: 1fr;
+  }
+}

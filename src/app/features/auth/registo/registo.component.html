@@ -1,0 +1,37 @@
+<div class="auth-container">
+  <form class="auth-card" [formGroup]="form" (ngSubmit)="submeter()">
+    <h1>Criar conta</h1>
+
+    <label for="name">Nome</label>
+    <input id="name" type="text" formControlName="name" placeholder="O teu nome" />
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <small class="erro">Indica o teu nome.</small>
+    }
+
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" placeholder="o-teu@email.com" />
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small class="erro">Indica um email válido.</small>
+    }
+
+    <label for="password">Palavra-passe</label>
+    <input id="password" type="password" formControlName="password" placeholder="••••••••" />
+    @if (form.controls.password.touched && form.controls.password.invalid) {
+      <small class="erro">Mínimo de 6 caracteres.</small>
+    }
+
+    <label for="password_confirmation">Confirmar palavra-passe</label>
+    <input id="password_confirmation" type="password" formControlName="password_confirmation" placeholder="••••••••" />
+    @if (form.touched && form.errors?.['passwordsDiferentes']) {
+      <small class="erro">As palavras-passe não coincidem.</small>
+    }
+
+    <button type="submit" [disabled]="aCarregar()">
+      {{ aCarregar() ? 'A criar conta...' : 'Criar conta' }}
+    </button>
+
+    <p class="hint">
+      Já tens conta? <a routerLink="/auth/login">Entrar</a>
+    </p>
+  </form>
+</div>

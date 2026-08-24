@@ -1,0 +1,128 @@
+.pagina-loja {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cabecalho {
+  grid-column: 1 / -1;
+  padding: 0.5rem 0.25rem 0;
+
+  h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    margin: 0.35rem 0 0;
+    color: var(--cor-texto-suave);
+    font-size: 0.95rem;
+  }
+}
+
+.filtros {
+  align-self: start;
+  position: sticky;
+  top: 92px;
+  background: var(--cor-superficie);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-card);
+  padding: 1.25rem;
+
+  h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin: 1rem 0 0.35rem;
+    color: var(--cor-texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .btn-filtrar {
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.65rem;
+    background: linear-gradient(135deg, var(--cor-primaria), #6d28d9);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.88rem;
+    font-family: inherit;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+    }
+  }
+}
+
+.resultados {
+  min-width: 0;
+
+  .estado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--cor-texto-suave);
+    padding: 4rem 1rem;
+    text-align: center;
+
+    svg {
+      width: 40px;
+      height: 40px;
+      opacity: 0.5;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid var(--cor-primaria-clara);
+      border-top-color: var(--cor-primaria);
+      border-radius: 50%;
+      animation: rodar 0.8s linear infinite;
+    }
+  }
+
+  .grelha {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@keyframes rodar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 720px) {
+  .pagina-loja {
+    grid-template-columns: 1fr;
+  }
+
+  .filtros {
+    position: static;
+  }
+}

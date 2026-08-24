@@ -1,0 +1,31 @@
+<div class="card">
+  <a [routerLink]="['/loja', produto.id]" class="imagem-link">
+    <img
+      [src]="produto.imagem_url || 'https://placehold.co/400x300?text=Produto'"
+      [alt]="produto.nome"
+      loading="lazy"
+    />
+    @if (produto.stock <= 0) {
+      <span class="tag-esgotado">Esgotado</span>
+    }
+  </a>
+
+  <div class="conteudo">
+    @if (produto.categoria) {
+      <span class="categoria">{{ produto.categoria.nome }}</span>
+    }
+
+    <a [routerLink]="['/loja', produto.id]" class="nome">{{ produto.nome }}</a>
+
+    <div class="rodape">
+      <span class="preco">{{ produto.preco | currency: 'AOA ':'symbol':'1.2-2' }}</span>
+      <button
+        (click)="adicionarAoCarrinho.emit(produto)"
+        [disabled]="produto.stock <= 0"
+        class="btn-adicionar"
+      >
+        {{ produto.stock > 0 ? 'Adicionar' : 'Indisponível' }}
+      </button>
+    </div>
+  </div>
+</div>

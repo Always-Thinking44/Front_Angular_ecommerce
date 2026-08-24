@@ -1,0 +1,75 @@
+<div class="pagina-admin">
+  <div class="cabecalho">
+    <h1>Gestão de produtos</h1>
+    <button (click)="novoProduto()">+ Novo produto</button>
+  </div>
+
+  @if (aMostrarFormulario) {
+    <div class="formulario">
+      <h2>{{ emEdicaoId ? 'Editar produto' : 'Novo produto' }}</h2>
+
+      <label>Nome</label>
+      <input type="text" [(ngModel)]="formulario.nome" />
+
+      <label>Descrição</label>
+      <textarea [(ngModel)]="formulario.descricao"></textarea>
+
+      <div class="linha-dupla">
+        <div>
+          <label>Preço (AOA)</label>
+          <input type="number" min="0" [(ngModel)]="formulario.preco" />
+        </div>
+        <div>
+          <label>Stock</label>
+          <input type="number" min="0" [(ngModel)]="formulario.stock" />
+        </div>
+      </div>
+
+      <label>Categoria</label>
+      <select [(ngModel)]="formulario.categoria_id">
+        <option [ngValue]="0" disabled>Escolhe uma categoria</option>
+        @for (categoria of categorias(); track categoria.id) {
+          <option [ngValue]="categoria.id">{{ categoria.nome }}</option>
+        }
+      </select>
+
+      <label>URL da imagem</label>
+      <input type="text" [(ngModel)]="formulario.imagem_url" placeholder="https://..." />
+
+      <div class="acoes-formulario">
+        <button class="secundario" (click)="cancelarEdicao()">Cancelar</button>
+        <button (click)="guardar()">Guardar</button>
+      </div>
+    </div>
+  }
+
+  @if (aCarregar()) {
+    <p class="estado">A carregar...</p>
+  } @else {
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Preço</th>
+          <th>Stock</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (produto of produtos(); track produto.id) {
+          <tr>
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.categoria?.nome }}</td>
+            <td>{{ produto.preco | currency: 'AOA ':'symbol':'1.2-2' }}</td>
+            <td>{{ produto.stock }}</td>
+            <td class="acoes">
+              <button class="link" (click)="editar(produto)">Editar</button>
+              <button class="link perigo" (click)="remover(produto)">Remover</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

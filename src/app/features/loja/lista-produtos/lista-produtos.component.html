@@ -1,0 +1,55 @@
+<div class="pagina-loja">
+  <header class="cabecalho">
+    <h1>A nossa loja</h1>
+    <p>Descobre os melhores produtos de todas as categorias.</p>
+  </header>
+
+  <aside class="filtros">
+    <h3>Filtrar</h3>
+
+    <label>Pesquisar</label>
+    <input
+      type="text"
+      placeholder="Nome do produto..."
+      [(ngModel)]="pesquisa"
+      (keyup.enter)="carregarProdutos()"
+    />
+
+    <label>Categoria</label>
+    <select [(ngModel)]="categoriaSelecionada" (change)="carregarProdutos()">
+      <option [ngValue]="null">Todas as categorias</option>
+      @for (categoria of categorias(); track categoria.id) {
+        <option [ngValue]="categoria.id">{{ categoria.nome }}</option>
+      }
+    </select>
+
+    <button class="btn-filtrar" (click)="carregarProdutos()">Aplicar filtros</button>
+  </aside>
+
+  <section class="resultados">
+    @if (aCarregar()) {
+      <div class="estado">
+        <span class="spinner"></span>
+        <p>A carregar produtos...</p>
+      </div>
+    } @else if (produtos().length === 0) {
+      <div class="estado">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+        <p>Nenhum produto encontrado.</p>
+      </div>
+    } @else {
+      <div class="grelha">
+        @for (produto of produtos(); track produto.id) {
+          <app-produto-card
+            [produto]="produto"
+            (adicionarAoCarrinho)="adicionarAoCarrinho($event)"
+          />
+        }
+      </div>
+    }
+  </section>
+</div>

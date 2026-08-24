@@ -1,0 +1,25 @@
+<div class="auth-container">
+  <form class="auth-card" [formGroup]="form" (ngSubmit)="submeter()">
+    <h1>Entrar</h1>
+
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" placeholder="o-teu@email.com" />
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small class="erro">Indica um email válido.</small>
+    }
+
+    <label for="password">Palavra-passe</label>
+    <input id="password" type="password" formControlName="password" placeholder="••••••••" />
+    @if (form.controls.password.touched && form.controls.password.invalid) {
+      <small class="erro">Mínimo de 6 caracteres.</small>
+    }
+
+    <button type="submit" [disabled]="aCarregar()">
+      {{ aCarregar() ? 'A entrar...' : 'Entrar' }}
+    </button>
+
+    <p class="hint">
+      Ainda não tens conta? <a routerLink="/auth/registo">Regista-te</a>
+    </p>
+  </form>
+</div>

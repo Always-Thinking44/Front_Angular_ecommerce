@@ -1,0 +1,35 @@
+.pagina-perfil {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.5rem;
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .campo {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .rotulo {
+      color: #888;
+      font-size: 0.85rem;
+    }
+
+    .valor {
+      font-weight: 600;
+    }
+  }
+}

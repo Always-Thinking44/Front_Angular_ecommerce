@@ -1,0 +1,119 @@
+.card {
+  background: var(--cor-superficie);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--sombra-card);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow: var(--sombra-flutuante);
+    transform: translateY(-4px);
+
+    .imagem-link img {
+      transform: scale(1.06);
+    }
+  }
+
+  .imagem-link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .tag-esgotado {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+    }
+  }
+
+  .conteudo {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    flex: 1;
+  }
+
+  .categoria {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--cor-primaria);
+    background: var(--cor-primaria-clara);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+  }
+
+  .nome {
+    font-weight: 600;
+    color: var(--cor-texto);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.35;
+
+    &:hover {
+      color: var(--cor-primaria);
+    }
+  }
+
+  .rodape {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    .preco {
+      font-weight: 800;
+      font-size: 1.02rem;
+      color: var(--cor-acento);
+      letter-spacing: -0.01em;
+    }
+
+    .btn-adicionar {
+      background: var(--cor-primaria);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s ease, transform 0.15s ease;
+
+      &:hover:not(:disabled) {
+        background: var(--cor-primaria-escura);
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        background: #e2e8f0;
+        color: #94a3b8;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

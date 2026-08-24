@@ -1,0 +1,41 @@
+<div class="pagina-admin">
+  <div class="cabecalho">
+    <h1>Gestão de encomendas</h1>
+  </div>
+
+  @if (aCarregar()) {
+    <p class="estado">A carregar...</p>
+  } @else if (encomendas().length === 0) {
+    <p class="estado">Ainda não há encomendas.</p>
+  } @else {
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nº</th>
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (encomenda of encomendas(); track encomenda.id) {
+          <tr>
+            <td>#{{ encomenda.id }}</td>
+            <td>{{ encomenda.user_id }}</td>
+            <td>{{ encomenda.total | currency: 'AOA ':'symbol':'1.2-2' }}</td>
+            <td>
+              <select
+                [ngModel]="encomenda.estado"
+                (ngModelChange)="mudarEstado(encomenda, $event)"
+              >
+                @for (estado of estados; track estado) {
+                  <option [value]="estado">{{ estado }}</option>
+                }
+              </select>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

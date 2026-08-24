@@ -1,0 +1,19 @@
+@if (auth.user(); as user) {
+  <div class="pagina-perfil">
+    <h1>O meu perfil</h1>
+    <div class="card">
+      <div class="campo">
+        <span class="rotulo">Nome</span>
+        <span class="valor">{{ user.name }}</span>
+      </div>
+      <div class="campo">
+        <span class="rotulo">Email</span>
+        <span class="valor">{{ user.email }}</span>
+      </div>
+      <div class="campo">
+        <span class="rotulo">Tipo de conta</span>
+        <span class="valor">{{ user.role === 'admin' ? 'Administrador' : 'Cliente' }}</span>
+      </div>
+    </div>
+  </div>
+}

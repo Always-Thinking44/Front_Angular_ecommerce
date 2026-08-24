@@ -1,0 +1,59 @@
+@if (aCarregar()) {
+  <p class="estado">A carregar...</p>
+} @else if (produto()) {
+  @let p = produto()!;
+  <div class="detalhe">
+    <div class="galeria">
+      <img [src]="p.imagem_url || 'https://placehold.co/500x400?text=Produto'" [alt]="p.nome" />
+    </div>
+
+    <div class="info">
+      @if (p.categoria) {
+        <span class="categoria">{{ p.categoria.nome }}</span>
+      }
+      <h1>{{ p.nome }}</h1>
+      <p class="descricao">{{ p.descricao }}</p>
+      <p class="preco">{{ p.preco | currency: 'AOA ':'symbol':'1.2-2' }}</p>
+      <p class="stock">{{ p.stock > 0 ? p.stock + ' em stock' : 'Esgotado' }}</p>
+
+      <div class="acoes">
+        <input type="number" min="1" [max]="p.stock" [(ngModel)]="quantidade" />
+        <button (click)="adicionarAoCarrinho()" [disabled]="p.stock <= 0">
+          Adicionar ao carrinho
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section class="avaliacoes">
+    <h2>Avaliações ({{ avaliacoes().length }})</h2>
+
+    @if (auth.autenticado()) {
+      <div class="nova-avaliacao">
+        <label>Classificação</label>
+        <select [(ngModel)]="novaAvaliacao.classificacao">
+          @for (n of [5, 4, 3, 2, 1]; track n) {
+            <option [ngValue]="n">{{ n }} estrela(s)</option>
+          }
+        </select>
+        <textarea
+          [(ngModel)]="novaAvaliacao.comentario"
+          placeholder="Escreve o teu comentário (opcional)"
+        ></textarea>
+        <button (click)="submeterAvaliacao()">Enviar avaliação</button>
+      </div>
+    }
+
+    @if (avaliacoes().length === 0) {
+      <p class="estado">Ainda sem avaliações.</p>
+    } @else {
+      @for (avaliacao of avaliacoes(); track avaliacao.id) {
+        <div class="avaliacao">
+          <strong>{{ avaliacao.user_name || 'Cliente' }}</strong>
+          <span class="classificacao">{{ avaliacao.classificacao }} ★</span>
+          <p>{{ avaliacao.comentario }}</p>
+        </div>
+      }
+    }
+  </section>
+}

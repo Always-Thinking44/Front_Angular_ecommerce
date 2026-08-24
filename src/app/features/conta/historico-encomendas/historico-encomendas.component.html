@@ -1,0 +1,36 @@
+<div class="pagina-historico">
+  <h1>As minhas encomendas</h1>
+
+  @if (aCarregar()) {
+    <p class="estado">A carregar...</p>
+  } @else if (encomendas().length === 0) {
+    <p class="estado">Ainda não fizeste nenhuma encomenda.</p>
+  } @else {
+    @for (encomenda of encomendas(); track encomenda.id) {
+      <div class="encomenda">
+        <div class="cabecalho">
+          <span class="numero">Encomenda #{{ encomenda.id }}</span>
+          <span class="estado-badge" [class]="encomenda.estado">{{ encomenda.estado }}</span>
+        </div>
+
+        @if (encomenda.itens && encomenda.itens.length > 0) {
+          <div class="itens">
+            @for (item of encomenda.itens; track item.id) {
+              <div class="linha">
+                <span>{{ item.quantidade }}× {{ item.produto?.nome }}</span>
+                <span>{{ item.preco_unitario * item.quantidade | currency: 'AOA ':'symbol':'1.2-2' }}</span>
+              </div>
+            }
+          </div>
+        }
+
+        <div class="rodape">
+          <span>Total: <strong>{{ encomenda.total | currency: 'AOA ':'symbol':'1.2-2' }}</strong></span>
+          @if (podeCancelar(encomenda.estado)) {
+            <button (click)="cancelar(encomenda.id)">Cancelar</button>
+          }
+        </div>
+      </div>
+    }
+  }
+</div>
