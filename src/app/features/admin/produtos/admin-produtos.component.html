@@ -33,8 +33,11 @@
         }
       </select>
 
-      <label>URL da imagem</label>
-      <input type="text" [(ngModel)]="formulario.imagem_url" placeholder="https://..." />
+      <label>Imagem do produto</label>
+      <input type="file" accept="image/*" (change)="selecionarImagem($event)" />
+      @if (previewImagem) {
+        <img [src]="previewImagem" alt="Pré-visualização" class="preview" />
+      }
 
       <div class="acoes-formulario">
         <button class="secundario" (click)="cancelarEdicao()">Cancelar</button>

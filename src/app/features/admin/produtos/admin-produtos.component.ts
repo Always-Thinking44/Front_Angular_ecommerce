@@ -34,6 +34,8 @@ export class AdminProdutosComponent implements OnInit {
   emEdicaoId: number | null = null;
   formulario: ProdutoPayload = { ...PRODUTO_VAZIO };
   aMostrarFormulario = false;
+  imagemFile: File | null = null;
+  previewImagem: string | null = null;
 
   ngOnInit(): void {
     this.categoriaService.listar().subscribe({
@@ -60,6 +62,8 @@ export class AdminProdutosComponent implements OnInit {
   novoProduto() {
     this.emEdicaoId = null;
     this.formulario = { ...PRODUTO_VAZIO };
+    this.imagemFile = null;
+    this.previewImagem = null;
     this.aMostrarFormulario = true;
   }
 
@@ -73,7 +77,22 @@ export class AdminProdutosComponent implements OnInit {
       imagem_url: produto.imagem_url ?? '',
       categoria_id: produto.categoria_id,
     };
+    this.imagemFile = null;
+    this.previewImagem = produto.imagem_url ?? null;
     this.aMostrarFormulario = true;
+  }
+
+  selecionarImagem(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const arquivo = input.files?.[0] ?? null;
+    this.imagemFile = arquivo;
+    if (arquivo) {
+      const reader = new FileReader();
+      reader.onload = () => (this.previewImagem = reader.result as string);
+      reader.readAsDataURL(arquivo);
+    } else {
+      this.previewImagem = null;
+    }
   }
 
   cancelarEdicao() {
@@ -88,8 +107,8 @@ export class AdminProdutosComponent implements OnInit {
     }
 
     const operacao = this.emEdicaoId
-      ? this.produtoService.atualizar(this.emEdicaoId, this.formulario)
-      : this.produtoService.criar(this.formulario);
+      ? this.produtoService.atualizar(this.emEdicaoId, this.formulario, this.imagemFile)
+      : this.produtoService.criar(this.formulario, this.imagemFile);
 
     operacao.subscribe({
       next: () => {

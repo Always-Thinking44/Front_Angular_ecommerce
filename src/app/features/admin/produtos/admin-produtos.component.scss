@@ -1,1 +1,9 @@
 @use '../admin-shared.scss';
+
+.preview {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 6px;
+  margin-top: 8px;
+  object-fit: cover;
+}

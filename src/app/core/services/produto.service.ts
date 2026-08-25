@@ -36,19 +36,32 @@ export class ProdutoService {
       .pipe(desembrulhar<Produto>(), map((p) => comImagemUrl(p)));
   }
 
-  criar(payload: ProdutoPayload): Observable<Produto> {
+  criar(payload: ProdutoPayload, imagem?: File | null): Observable<Produto> {
+    const formData = this.montarFormData(payload, imagem);
     return this.http
-      .post<unknown>(this.base, payload)
+      .post<unknown>(this.base, formData)
       .pipe(desembrulhar<Produto>(), map((p) => comImagemUrl(p)));
   }
 
-  atualizar(id: number, payload: Partial<ProdutoPayload>): Observable<Produto> {
+  atualizar(id: number, payload: Partial<ProdutoPayload>, imagem?: File | null): Observable<Produto> {
+    const formData = this.montarFormData(payload, imagem);
     return this.http
-      .put<unknown>(`${this.base}/${id}`, payload)
+      .put<unknown>(`${this.base}/${id}`, formData)
       .pipe(desembrulhar<Produto>(), map((p) => comImagemUrl(p)));
   }
 
   remover(id: number): Observable<void> {
     return this.http.delete<void>(`${this.base}/${id}`);
+  }
+
+  private montarFormData(payload: Partial<ProdutoPayload>, imagem?: File | null): FormData {
+    const formData = new FormData();
+    if (payload.nome != null) formData.append('nome', payload.nome);
+    if (payload.descricao != null) formData.append('descricao', payload.descricao);
+    if (payload.preco != null) formData.append('preco', String(payload.preco));
+    if (payload.stock != null) formData.append('stock', String(payload.stock));
+    if (payload.categoria_id != null) formData.append('categoria_id', String(payload.categoria_id));
+    if (imagem) formData.append('imagem', imagem);
+    return formData;
   }
 }
