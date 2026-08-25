@@ -8,7 +8,6 @@ import { Encomenda, EncomendaEstado } from '../../../core/models';
 const ESTADOS: EncomendaEstado[] = [
   'pendente',
   'paga',
-  'em_preparacao',
   'enviada',
   'entregue',
   'cancelada',

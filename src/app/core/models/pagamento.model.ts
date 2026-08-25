@@ -1,4 +1,4 @@
-export type PagamentoMetodo = 'cartao' | 'transferencia' | 'multicaixa' | 'mbway';
+export type PagamentoMetodo = 'cartao' | 'transferencia' | 'multicaixa';
 export type PagamentoEstado = 'pendente' | 'aprovado' | 'recusado';
 
 export interface Pagamento {

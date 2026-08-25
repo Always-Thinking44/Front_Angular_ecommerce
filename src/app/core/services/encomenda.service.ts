@@ -11,7 +11,6 @@ export class EncomendaService {
 
   constructor(private http: HttpClient) {}
 
-  /** Histórico do cliente autenticado (ou todas, se for admin - conforme a tua API decidir) */
   listar(): Observable<Encomenda[]> {
     return this.http
       .get<unknown>(this.base)
@@ -24,17 +23,15 @@ export class EncomendaService {
       .pipe(desembrulhar<Encomenda>());
   }
 
-  /** Cria a encomenda a partir do carrinho atual do cliente */
   criar(payload: EncomendaPayload): Observable<Encomenda> {
     return this.http
       .post<unknown>(this.base, payload)
       .pipe(desembrulhar<Encomenda>());
   }
 
-  /** Uso administrativo: mudar estado da encomenda */
   atualizarEstado(id: number, estado: EncomendaEstado): Observable<Encomenda> {
     return this.http
-      .put<unknown>(`${this.base}/${id}`, { estado })
+      .patch<unknown>(`${this.base}/${id}/estado`, { estado })
       .pipe(desembrulhar<Encomenda>());
   }
 

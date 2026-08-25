@@ -5,6 +5,11 @@ import { environment } from '../../../environments/environment';
 import { CarrinhoItem, CarrinhoItemPayload } from '../models';
 import { comImagemUrl, desembrulhar } from '../http/api-resposta';
 
+interface CarrinhoResposta {
+  itens: CarrinhoItem[];
+  total: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class CarrinhoService {
   private readonly base = `${environment.apiUrl}/carrinho`;
@@ -13,8 +18,11 @@ export class CarrinhoService {
 
   listar(): Observable<CarrinhoItem[]> {
     return this.http
-      .get<unknown>(this.base)
-      .pipe(desembrulhar<CarrinhoItem[]>(), this.normalizarItens());
+      .get<CarrinhoResposta>(this.base)
+      .pipe(
+        map((res) => res.itens ?? []),
+        this.normalizarItens(),
+      );
   }
 
   adicionar(payload: CarrinhoItemPayload): Observable<CarrinhoItem> {
@@ -25,16 +33,12 @@ export class CarrinhoService {
 
   atualizarQuantidade(id: number, quantidade: number): Observable<CarrinhoItem> {
     return this.http
-      .put<unknown>(`${this.base}/${id}`, { quantidade })
+      .patch<unknown>(`${this.base}/${id}`, { quantidade })
       .pipe(desembrulhar<CarrinhoItem>(), this.normalizarItem());
   }
 
   remover(id: number): Observable<void> {
     return this.http.delete<void>(`${this.base}/${id}`);
-  }
-
-  esvaziar(): Observable<void> {
-    return this.http.delete<void>(`${this.base}/esvaziar`);
   }
 
   private normalizarItens() {
