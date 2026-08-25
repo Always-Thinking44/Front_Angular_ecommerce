@@ -116,7 +116,15 @@ export class AdminProdutosComponent implements OnInit {
         this.aMostrarFormulario = false;
         this.carregarProdutos();
       },
-      error: () => this.notificacao.erro('Não foi possível guardar o produto.'),
+      error: (erro) => {
+        const erros = erro?.error?.errors;
+        if (erros && typeof erros === 'object') {
+          const msg = Object.values(erros).flat().join('; ');
+          this.notificacao.erro(msg);
+        } else {
+          this.notificacao.erro(erro?.error?.message ?? 'Não foi possível guardar o produto.');
+        }
+      },
     });
   }
 

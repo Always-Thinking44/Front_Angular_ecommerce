@@ -61,7 +61,7 @@ export class ProdutoService {
     if (payload.preco != null) formData.append('preco', String(payload.preco));
     if (payload.stock != null) formData.append('stock', String(payload.stock));
     if (payload.categoria_id != null) formData.append('categoria_id', String(payload.categoria_id));
-    if (imagem) formData.append('imagem', imagem);
+    if (imagem) formData.append('imagem', imagem, imagem.name);
     return formData;
   }
 }
