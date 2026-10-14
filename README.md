@@ -1,59 +1,117 @@
-# EcommerceFrontend
+# Ecommerce Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.19.
+Aplicação de comércio eletrónico desenvolvida com Angular 21. Interface de loja com catálogo de produtos, carrinho, checkout, área de cliente e painel de administração.
 
-## Development server
+## Requisitos
 
-To start a local development server, run:
+- Node.js 20 ou superior
+- npm 11 ou superior
+- Angular CLI 21
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Instalação
 
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Desenvolvimento
+
+Iniciar o servidor local:
+
+```bash
+npm start
+```
+
+A aplicação fica disponível em `http://localhost:4200/` e recarrega automaticamente ao alterar os ficheiros.
+
+## Build
+
+```bash
+npm run build
+```
+
+Os artefactos são gerados na pasta `dist/`. Por predefinição a build de produção otimiza a aplicação para desempenho.
+
+Para build em modo desenvolvimento com watch:
+
+```bash
+npm run watch
+```
+
+## Testes
+
+```bash
+npm test
+```
+
+Os testes unitários usam o runner Vitest.
+
+## Estrutura do projeto
+
+```
+src/
+  app/
+    core/          Serviços, modelos, guards e interceptors
+    features/      Módulos funcionais da aplicação
+    shared/        Componentes reutilizáveis
+  environments/    Configuração de ambiente
+  styles.scss      Estilos globais
+```
+
+### Funcionalidades
+
+- Loja: lista de produtos, filtros e página de detalhe
+- Carrinho: gestão de itens e quantidades
+- Checkout: finalização de encomendas
+- Conta: perfil e histórico de encomendas
+- Autenticação: login e registo
+- Administração: gestão de produtos, categorias e encomendas
+
+## Rotas principais
+
+| Rota | Descrição |
+| --- | --- |
+| `/` | Página inicial |
+| `/loja` | Lista de produtos |
+| `/loja/:id` | Detalhe do produto |
+| `/carrinho` | Carrinho (requer login) |
+| `/checkout` | Finalização (requer login) |
+| `/conta/perfil` | Perfil do utilizador |
+| `/conta/historico` | Histórico de encomendas |
+| `/admin/produtos` | Gestão de produtos (admin) |
+| `/admin/categorias` | Gestão de categorias (admin) |
+| `/admin/encomendas` | Gestão de encomendas (admin) |
+
+## Configuração
+
+O URL da API é definido em `src/environments/environment.ts`:
+
+```ts
+export const environment = {
+  production: true,
+  apiUrl: 'https://api-ecommerce-laravel.onrender.com/api'
+};
+```
+
+## Tecnologias
+
+- Angular 21
+- TypeScript 5.9
+- RxJS 7.8
+- SCSS
+- Vitest
+- Prettier
+
+## Scaffolding
+
+Gerar um novo componente:
+
+```bash
+ng generate component nome-do-componente
+```
+
+Lista completa de schematics disponíveis:
 
 ```bash
 ng generate --help
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
